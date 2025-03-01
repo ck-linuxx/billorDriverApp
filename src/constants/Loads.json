@@ -1,0 +1,332 @@
+{
+  "loads": [
+    {
+      "id": "load001",
+      "name": "Electronics Shipment",
+      "status": "in transit",
+      "additionalInformation": {
+        "description": "Shipment containing consumer electronics from San Francisco to Los Angeles",
+        "weight": "2000kg",
+        "type": "Fragile"
+      },
+      "value": "$50,000",
+      "map": {
+        "pickupLocation": {
+          "latitude": 37.7749,
+          "longitude": -122.4194,
+          "address": "San Francisco, CA"
+        },
+        "dropOffLocation": {
+          "latitude": 34.0522,
+          "longitude": -118.2437,
+          "address": "Los Angeles, CA"
+        },
+        "route": "https://www.google.com/maps/dir/37.7749,-122.4194/34.0522,-118.2437"
+      },
+      "relevantActions": [
+        "viewDetails",
+        "edit",
+        "delete",
+        "assignDriver"
+      ]
+    },
+    {
+      "id": "load002",
+      "name": "Furniture Delivery",
+      "status": "delivered",
+      "additionalInformation": {
+        "description": "Delivery of furniture items from New York to Boston",
+        "weight": "1500kg",
+        "type": "Non-Fragile"
+      },
+      "value": "$30,000",
+      "map": {
+        "pickupLocation": {
+          "latitude": 40.7128,
+          "longitude": -74.0060,
+          "address": "New York, NY"
+        },
+        "dropOffLocation": {
+          "latitude": 42.3601,
+          "longitude": -71.0589,
+          "address": "Boston, MA"
+        },
+        "route": "https://www.google.com/maps/dir/40.7128,-74.0060/42.3601,-71.0589"
+      },
+      "relevantActions": [
+        "viewDetails",
+        "edit",
+        "delete",
+        "scheduleDelivery"
+      ]
+    },
+    {
+      "id": "load006",
+      "name": "Medical Equipment",
+      "status": "in transit",
+      "additionalInformation": {
+        "description": "Delivery of hospital medical equipment from Houston to Dallas",
+        "weight": "1000kg",
+        "type": "Fragile"
+      },
+      "value": "$40,000",
+      "map": {
+        "pickupLocation": {
+          "latitude": 29.7604,
+          "longitude": -95.3698,
+          "address": "Houston, TX"
+        },
+        "dropOffLocation": {
+          "latitude": 32.7767,
+          "longitude": -96.7970,
+          "address": "Dallas, TX"
+        },
+        "route": "https://www.google.com/maps/dir/29.7604,-95.3698/32.7767,-96.7970"
+      },
+      "relevantActions": [
+        "viewDetails",
+        "edit",
+        "delete",
+        "assignDriver"
+      ]
+    },
+    {
+      "id": "load007",
+      "name": "Grocery Supplies",
+      "status": "pending",
+      "additionalInformation": {
+        "description": "Delivery of fresh grocery supplies from Seattle to Portland",
+        "weight": "700kg",
+        "type": "Perishable"
+      },
+      "value": "$15,000",
+      "map": {
+        "pickupLocation": {
+          "latitude": 47.6062,
+          "longitude": -122.3321,
+          "address": "Seattle, WA"
+        },
+        "dropOffLocation": {
+          "latitude": 45.5152,
+          "longitude": -122.6784,
+          "address": "Portland, OR"
+        },
+        "route": "https://www.google.com/maps/dir/47.6062,-122.3321/45.5152,-122.6784"
+      },
+      "relevantActions": [
+        "viewDetails",
+        "edit",
+        "delete",
+        "confirmPickup"
+      ]
+    },
+    {
+      "id": "load008",
+      "name": "Office Supplies",
+      "status": "in transit",
+      "additionalInformation": {
+        "description": "Bulk delivery of office supplies from Denver to Phoenix",
+        "weight": "1200kg",
+        "type": "Standard"
+      },
+      "value": "$20,000",
+      "map": {
+        "pickupLocation": {
+          "latitude": 39.7392,
+          "longitude": -104.9903,
+          "address": "Denver, CO"
+        },
+        "dropOffLocation": {
+          "latitude": 33.4484,
+          "longitude": -112.0740,
+          "address": "Phoenix, AZ"
+        },
+        "route": "https://www.google.com/maps/dir/39.7392,-104.9903/33.4484,-112.0740"
+      },
+      "relevantActions": [
+        "viewDetails",
+        "edit",
+        "delete",
+        "assignDriver"
+      ]
+    },
+    {
+      "id": "load009",
+      "name": "Automotive Parts",
+      "status": "in transit",
+      "additionalInformation": {
+        "description": "Shipment of car parts from Detroit to Chicago",
+        "weight": "2500kg",
+        "type": "Heavy"
+      },
+      "value": "$60,000",
+      "map": {
+        "pickupLocation": {
+          "latitude": 42.3314,
+          "longitude": -83.0458,
+          "address": "Detroit, MI"
+        },
+        "dropOffLocation": {
+          "latitude": 41.8781,
+          "longitude": -87.6298,
+          "address": "Chicago, IL"
+        },
+        "route": "https://www.google.com/maps/dir/42.3314,-83.0458/41.8781,-87.6298"
+      },
+      "relevantActions": [
+        "viewDetails",
+        "edit",
+        "delete",
+        "assignDriver"
+      ]
+    },
+    {
+      "id": "load0068",
+      "name": "Electronics Shipment",
+      "status": "in transit",
+      "additionalInformation": {
+        "description": "Shipment containing consumer electronics from San Francisco to Los Angeles",
+        "weight": "2000kg",
+        "type": "Fragile"
+      },
+      "value": "$50,000",
+      "map": {
+        "pickupLocation": {
+          "latitude": 37.7749,
+          "longitude": -122.4194,
+          "address": "San Francisco, CA"
+        },
+        "dropOffLocation": {
+          "latitude": 34.0522,
+          "longitude": -118.2437,
+          "address": "Los Angeles, CA"
+        },
+        "route": "https://www.google.com/maps/dir/37.7749,-122.4194/34.0522,-118.2437"
+      },
+      "relevantActions": [
+        "viewDetails",
+        "edit",
+        "delete",
+        "assignDriver"
+      ]
+    },
+    {
+      "id": "load002432",
+      "name": "Furniture Delivery",
+      "status": "delivered",
+      "additionalInformation": {
+        "description": "Delivery of furniture items from New York to Boston",
+        "weight": "1500kg",
+        "type": "Non-Fragile"
+      },
+      "value": "$30,000",
+      "map": {
+        "pickupLocation": {
+          "latitude": 40.7128,
+          "longitude": -74.0060,
+          "address": "New York, NY"
+        },
+        "dropOffLocation": {
+          "latitude": 42.3601,
+          "longitude": -71.0589,
+          "address": "Boston, MA"
+        },
+        "route": "https://www.google.com/maps/dir/40.7128,-74.0060/42.3601,-71.0589"
+      },
+      "relevantActions": [
+        "viewDetails",
+        "edit",
+        "delete",
+        "scheduleDelivery"
+      ]
+    },
+    {
+      "id": "load010",
+      "name": "Industrial Machinery",
+      "status": "cancelled",
+      "additionalInformation": {
+        "description": "Heavy machinery transport from Pittsburgh to Cincinnati",
+        "weight": "5000kg",
+        "type": "Heavy"
+      },
+      "value": "$100,000",
+      "map": {
+        "pickupLocation": {
+          "latitude": 40.4406,
+          "longitude": -79.9959,
+          "address": "Pittsburgh, PA"
+        },
+        "dropOffLocation": {
+          "latitude": 39.1031,
+          "longitude": -84.5120,
+          "address": "Cincinnati, OH"
+        },
+        "route": "https://www.google.com/maps/dir/40.4406,-79.9959/39.1031,-84.5120"
+      },
+      "relevantActions": [
+        "viewDetails",
+        "reschedule",
+        "delete"
+      ]
+    },
+    {
+      "id": "load011",
+      "name": "Chemical Transport",
+      "status": "delivered",
+      "additionalInformation": {
+        "description": "Delivery of hazardous chemicals from Houston to Baton Rouge",
+        "weight": "3000kg",
+        "type": "Hazardous"
+      },
+      "value": "$75,000",
+      "map": {
+        "pickupLocation": {
+          "latitude": 29.7604,
+          "longitude": -95.3698,
+          "address": "Houston, TX"
+        },
+        "dropOffLocation": {
+          "latitude": 30.4515,
+          "longitude": -91.1871,
+          "address": "Baton Rouge, LA"
+        },
+        "route": "https://www.google.com/maps/dir/29.7604,-95.3698/30.4515,-91.1871"
+      },
+      "relevantActions": [
+        "viewDetails",
+        "edit",
+        "delete"
+      ]
+    },
+    {
+      "id": "load012",
+      "name": "Beverage Shipment",
+      "status": "in transit",
+      "additionalInformation": {
+        "description": "Soft drinks delivery from Atlanta to Nashville",
+        "weight": "2500kg",
+        "type": "Perishable"
+      },
+      "value": "$35,000",
+      "map": {
+        "pickupLocation": {
+          "latitude": 33.7490,
+          "longitude": -84.3880,
+          "address": "Atlanta, GA"
+        },
+        "dropOffLocation": {
+          "latitude": 36.1627,
+          "longitude": -86.7816,
+          "address": "Nashville, TN"
+        },
+        "route": "https://www.google.com/maps/dir/33.7490,-84.3880/36.1627,-86.7816"
+      },
+      "relevantActions": [
+        "viewDetails",
+        "edit",
+        "delete",
+        "assignDriver"
+      ]
+    }
+  ]
+}

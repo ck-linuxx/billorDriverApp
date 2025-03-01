@@ -1,0 +1,4 @@
+export const SupabseCredentials = {
+  url: "https://bbziaggpaxjlhhibfcuh.supabase.co",
+  anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJiemlhZ2dwYXhqbGhoaWJmY3VoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA4NDEyMTAsImV4cCI6MjA1NjQxNzIxMH0.LImE1iGkH4yikqogUv6XzcvselEKniWcEqYdCLeLBmE"
+}
