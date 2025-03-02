@@ -1,64 +1,56 @@
-# BillorDriverApp - Documentação
+# BillorDriverApp - Documentation
 
-## Introdução
-BillorDriverApp é um aplicativo desenvolvido com Expo, React Native e TypeScript, utilizando o Supabase como backend. O projeto inclui funcionalidades como navegação, armazenamento de dados, captura de imagens, mapas e notificações push.
+## Introduction
+BillorDriverApp is an application developed with Expo, React Native, and TypeScript, using Supabase as the backend. The project includes features such as route visualization, data storage, image capture, maps, and push notifications.
 
-## Configuração e Execução
+## Setup and Execution
 
-### Scripts Disponíveis
-- `npm start`: Inicia o projeto no Expo Dev Client.
-- `npm run android`: Executa o aplicativo no Android.
-- `npm run ios`: Executa o aplicativo no iOS.
-- `npm run web`: Executa o aplicativo na web.
+### Available Scripts
+- `npm install`: Downloads all dependencies.
+- `npm start`: Starts the project in the Expo Dev Client.
+- `npm run android`: Runs the app on Android.
+- `npm run ios`: Runs the app on iOS.
+- `npm run web`: Runs the app on the web.
 
-## Dependências Principais
+## Main Dependencies
 
-### Expo e React Native
-- `expo`: Ambiente de desenvolvimento para React Native.
-- `react-native`: Biblioteca principal para desenvolvimento mobile.
-- `react`: Biblioteca para a construção da interface do usuário.
-- `react-dom`: Suporte para renderização na web.
+### ⚛️ Expo and React Native
+- `expo`: Development environment for React Native.
+- `react-native`: Main library for mobile development.
+- `react`: Library for building the user interface.
 
-### Navegação
-- `@react-navigation/native`: Biblioteca principal de navegação.
-- `@react-navigation/bottom-tabs`: Implementa navegação por abas inferiores.
-- `@react-navigation/native-stack`: Implementa navegação baseada em pilha.
+### 🧭 Navigation
+- `@react-navigation/native`: Main navigation library.
+- `@react-navigation/bottom-tabs`: Implements bottom tab navigation.
 
-### Gerenciamento de Estado e Validação
-- `react-hook-form`: Gerenciamento de formulários.
-- `@hookform/resolvers`: Integração do react-hook-form com Zod.
-- `zod`: Biblioteca de validação de esquemas.
+### State Management and Validation
+- `react-hook-form`: Form management.
+- `@hookform/resolvers`: Integration of react-hook-form with Zod.
+- `zod`: Schema validation library.
 
-### Backend e Armazenamento
-- `@supabase/supabase-js`: SDK do Supabase para interação com o backend.
-- `@react-native-async-storage/async-storage`: Armazenamento assíncrono local.
-- `react-native-url-polyfill`: Suporte para URLs no React Native.
-- `react-native-uuid`: Geração de UUIDs.
-- `uuid`: Biblioteca adicional para UUIDs.
+### ⚙️ Backend and Storage
+- `@supabase/supabase-js`: Supabase SDK for backend interaction.
+- `@react-native-async-storage/async-storage`: Local asynchronous storage.
+- `react-native-url-polyfill`: URL support for React Native.
+- `react-native-uuid`: UUID generation.
+- `uuid`: Additional library for UUIDs.
 
-### UI e Temas
-- `@rneui/base`: Componentes de UI.
-- `@rneui/themed`: Temas para UI.
-- `nativewind`: Integra TailwindCSS com React Native.
-- `tailwindcss`: Biblioteca de estilos utilitários.
+### 🎇 UI and Themes
+- `nativewind`: Integrates TailwindCSS with React Native.
+- `tailwindcss`: Utility styles library.
 
-### Funcionalidades do Dispositivo
-- `expo-camera`: Captura de imagens e vídeos.
-- `expo-image-picker`: Seleção de imagens da galeria.
-- `expo-device`: Informações sobre o dispositivo.
-- `expo-status-bar`: Controle da barra de status.
-- `expo-system-ui`: Controle de UI do sistema.
-- `expo-notifications`: Notificações push.
-- `react-native-maps`: Integração com mapas.
-- `react-native-safe-area-context`: Controle de área segura na tela.
-- `react-native-screens`: Otimiza navegação para melhor desempenho.
-- `react-native-reanimated`: Animações nativas.
+## Conclusion
+BillorDriverApp is a robust application that combines the best tools for modern mobile development. With Expo, React Native, Supabase, TypeScript, and other libraries, it offers a comprehensive solution for mobile app development.
 
-## Dependências de Desenvolvimento
-- `@babel/core`: Compilador JavaScript.
-- `@types/react`: Tipagens do React para TypeScript.
-- `typescript`: Suporte a TypeScript.
+## App Images
 
-## Conclusão
-BillorDriverApp é um aplicativo robusto que combina as melhores ferramentas para desenvolvimento mobile moderno. Com Expo, React Native, Supabase e outras bibliotecas, ele garante uma experiência eficiente e escalável para os usuários e desenvolvedores.
+![App Image 1](./assets/01.jpg)  
+![App Image 2](./assets/02.jpg)  
+![App Image 3](./assets/03.jpg)  
+![App Image 4](./assets/04.jpg)  
+![App Image 5](./assets/05.jpg)  
+![App Image 6](./assets/06.jpg)  
+![App Image 7](./assets/07.jpg)  
+![App Image 8](./assets/08.jpg)  
 
+Made by Clark
