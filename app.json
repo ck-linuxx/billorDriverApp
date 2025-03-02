@@ -36,11 +36,20 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.billorDriverApp.app"
+      "package": "com.billorDriverApp.app",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "fd1d772e-e915-4b9a-96d4-c889d80fb751"
+      }
     }
   }
 }

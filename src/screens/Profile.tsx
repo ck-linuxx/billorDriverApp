@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { View, Text, TextInput, Image, TouchableOpacity, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { useAuth } from "../context/AuthContext";
-import { supabase } from "../lib/supabase";
 import { Feather } from "@expo/vector-icons";
 import { useTheme } from "../themes/ThemeProvider";
+import { useAuth } from "../hooks/AuthContext";
+import { supabase } from "../utils/supabase";
 
 interface IUser {
   email: string | undefined;
@@ -16,6 +16,7 @@ export default function Profile() {
   const { user } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const userData: IUser = user?.user_metadata || {};
+  console.log(user)
 
   const [username, setUsername] = useState(userData.username || "");
   const [avatarUrl, setAvatarUrl] = useState(userData.avatar_url || "");

@@ -20,8 +20,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "../schemas/SignIn";
 import { SignUpSchema } from "../schemas/SignUpSchema";
 import { useNavigation } from "@react-navigation/native";
-import { supabase } from "../lib/supabase";
 import { CheckBox, Icon } from '@rneui/themed';
+import { supabase } from "../utils/supabase";
 
 export default function SignUp() {
   const [passwordVisible, setPasswordVisible] = useState(false);

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { View, Image, Alert, Text, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { supabase } from "../lib/supabase";
 import uuid from "react-native-uuid";
 import { ThemeProvider, useTheme } from "../themes/ThemeProvider";
+import { supabase } from "../utils/supabase";
 
 interface CameraPickerProps {
   id: string;

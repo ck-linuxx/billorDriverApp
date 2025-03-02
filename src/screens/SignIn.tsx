@@ -18,8 +18,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "../schemas/SignIn";
 import { useNavigation } from "@react-navigation/native";
-import { supabase } from "../lib/supabase";
 import { Alert } from "react-native";
+import { supabase } from "../utils/supabase";
 
 
 export default function SignIn() {

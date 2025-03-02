@@ -5,8 +5,8 @@ import { RouteProp, useRoute } from "@react-navigation/native";
 import { RootStackParamList } from "../../types/types";
 import Loads from "../constants/Loads.json";
 import CameraPicker from "./Camera";
-import { supabase } from "../lib/supabase";
 import { Feather } from "@expo/vector-icons";
+import { supabase } from "../utils/supabase";
 
 type ItemScreenRouteProp = RouteProp<RootStackParamList, "Item">;
 
