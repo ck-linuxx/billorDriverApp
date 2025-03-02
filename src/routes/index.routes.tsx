@@ -9,20 +9,25 @@ import {
   TouchableWithoutFeedback,
   StatusBar
 } from "react-native";
+import { ThemeProvider, useTheme } from "../themes/ThemeProvider";
+
 
 export default function Routes() {
+
   return (
     <NavigationContainer>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
         <SafeAreaView className="flex-1 bg-white">
-          <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <KeyboardAvoidingView
               behavior={Platform.OS === "ios" ? "padding" : "height"}
               className="flex-1"
             >
               <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
-                <StackRoutes />
+                <ThemeProvider>
+                  <StackRoutes />
+                </ThemeProvider>
+
               </ScrollView>
             </KeyboardAvoidingView>
           </TouchableWithoutFeedback>

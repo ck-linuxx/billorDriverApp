@@ -3,13 +3,15 @@ import { View, Image, Alert, Text, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { supabase } from "../lib/supabase";
 import uuid from "react-native-uuid";
+import { ThemeProvider, useTheme } from "../themes/ThemeProvider";
 
 interface CameraPickerProps {
   id: string;
 }
 
-export default function CameraPicker({ id }: CameraPickerProps) {
+function CameraPickerComponent({ id }: CameraPickerProps) {
   const [imageUri, setImageUri] = useState<string | null>(null);
+  const { theme } = useTheme();
 
   const takePhoto = async () => {
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
@@ -34,7 +36,6 @@ export default function CameraPicker({ id }: CameraPickerProps) {
     try {
       const fileName = `photos/${id}-${uuid.v4()}.jpg`;
 
-      // Converte a imagem para um formato compatível
       const formData = new FormData();
       formData.append("file", {
         uri,
@@ -72,14 +73,27 @@ export default function CameraPicker({ id }: CameraPickerProps) {
   };
 
   return (
-    <View className="flex-1 items-center justify-center bg-gray-100 p-4">
+    <View className="flex-1 items-center justify-center m-4">
       {imageUri && (
         <Image source={{ uri: imageUri }} className="w-40 h-40 rounded-lg border border-gray-700" />
       )}
 
-      <TouchableOpacity onPress={takePhoto} className="bg-black py-4 px-6 rounded-lg mt-4">
-        <Text className="text-white text-center text-lg font-semibold">Upload a photo</Text>
+      <TouchableOpacity
+        onPress={takePhoto}
+        className={`${theme === "dark" ? "bg-white" : "bg-black"} py-4 px-6 rounded-lg mt-4`}
+      >
+        <Text
+          className={`${theme === "dark" ? "text-black" : "text-white"} text-lg font-semibold`}>
+          Upload a photo</Text>
       </TouchableOpacity>
     </View>
+  );
+}
+
+export default function CameraPicker({ id }: CameraPickerProps) {
+  return (
+    <ThemeProvider>
+      <CameraPickerComponent id={id} />
+    </ThemeProvider>
   );
 }

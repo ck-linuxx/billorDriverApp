@@ -35,7 +35,6 @@ export function Item() {
 
       setImages(data || []);
     } catch (error: any) {
-      console.error("Error fetching images:", error.message);
       Alert.alert("Error", "Could not load images.");
     }
   };
@@ -52,7 +51,6 @@ export function Item() {
       setImages((prevImages) => prevImages.filter((img) => img.id !== imageId));
       Alert.alert("Success", "Image deleted successfully.");
     } catch (error: any) {
-      console.error("Error deleting image:", error.message);
       Alert.alert("Error", "Could not delete image.");
     }
   };
@@ -62,77 +60,104 @@ export function Item() {
   }, [id]);
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
-      <View className="flex-1 bg-gray-100 p-4">
-        <Text className="text-3xl font-bold text-gray-900 text-center mb-4">{load?.name}</Text>
+    <View style={{ flex: 1 }}>
+      <ScrollView
+        style={{ flex: 1 }}
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
+        nestedScrollEnabled
+        showsVerticalScrollIndicator={false}
+      >
+        <View className="bg-gray-100 dark:bg-black p-4">
+          <Text className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-4">
+            {load?.name}
+          </Text>
 
-        <View className="bg-white p-4 rounded-xl shadow-md mb-4">
-          <Text className="text-lg text-gray-600">Value of Load</Text>
-          <Text className="text-5xl font-bold text-gray-900">{load?.value}</Text>
-        </View>
+          <View className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-md mb-4">
+            <Text className="text-lg text-gray-600 dark:text-gray-300">Value of Load</Text>
+            <Text className="text-5xl font-bold text-gray-900 dark:text-white">{load?.value}</Text>
+          </View>
 
-        <View className="bg-white p-4 rounded-xl shadow-md mb-4">
-          <Text className="text-lg font-semibold text-gray-700 mb-2">Additional Information</Text>
-          <Text className="text-gray-800"><Text className="font-bold">Description:</Text> {load?.additionalInformation.description}</Text>
-          <Text className="text-gray-800"><Text className="font-bold">Type of Load:</Text> {load?.additionalInformation.type}</Text>
-          <Text className="text-gray-800"><Text className="font-bold">Weight:</Text> {load?.additionalInformation.weight}</Text>
-        </View>
+          <View className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-md mb-4">
+            <Text className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">Additional Information</Text>
+            <Text className="text-gray-800 dark:text-gray-200">
+              <Text className="font-bold">Description:</Text> {load?.additionalInformation.description}
+            </Text>
+            <Text className="text-gray-800 dark:text-gray-200">
+              <Text className="font-bold">Type of Load:</Text> {load?.additionalInformation.type}
+            </Text>
+            <Text className="text-gray-800 dark:text-gray-200">
+              <Text className="font-bold">Weight:</Text> {load?.additionalInformation.weight}
+            </Text>
+          </View>
 
-        {pickup && dropOff && (
-          <View className="h-64 rounded-xl overflow-hidden shadow-md mb-4">
-            <MapView
-              style={{ flex: 1 }}
-              initialRegion={{
-                latitude: pickup.latitude,
-                longitude: pickup.longitude,
-                latitudeDelta: 0.1,
-                longitudeDelta: 0.1,
-              }}
+          {pickup && dropOff && (
+            <View className="h-64 rounded-xl overflow-hidden shadow-md mb-4">
+              <MapView
+                style={{ flex: 1 }}
+                initialRegion={{
+                  latitude: pickup.latitude,
+                  longitude: pickup.longitude,
+                  latitudeDelta: 0.1,
+                  longitudeDelta: 0.1,
+                }}
+              >
+                <Marker
+                  coordinate={{ latitude: pickup.latitude, longitude: pickup.longitude }}
+                  title="Pickup Location"
+                  description={pickup.address}
+                />
+                <Marker
+                  coordinate={{ latitude: dropOff.latitude, longitude: dropOff.longitude }}
+                  title="Drop Off Location"
+                  description={dropOff.address}
+                />
+              </MapView>
+            </View>
+          )}
+
+          {load?.map.route && (
+            <TouchableOpacity
+              className="bg-black dark:bg-white py-4 rounded-xl shadow-md mt-4"
+              onPress={() => Linking.openURL(load.map.route)}
             >
-              <Marker coordinate={{ latitude: pickup.latitude, longitude: pickup.longitude }} title="Pickup Location" description={pickup.address} />
-              <Marker coordinate={{ latitude: dropOff.latitude, longitude: dropOff.longitude }} title="Drop Off Location" description={dropOff.address} />
-            </MapView>
-          </View>
-        )}
+              <Text className="text-white dark:text-black text-center text-lg font-semibold">
+                Open route in Google Maps
+              </Text>
+            </TouchableOpacity>
+          )}
 
-        {load?.map.route && (
-          <TouchableOpacity
-            className="bg-black py-4 rounded-xl shadow-md mt-4"
-            onPress={() => Linking.openURL(load.map.route)}
-          >
-            <Text className="text-white text-center text-lg font-semibold">Open route in Google Maps</Text>
-          </TouchableOpacity>
-        )}
+          <CameraPicker id={id} />
 
-        <CameraPicker id={id} />
-
-        {images.length > 0 ? (
-          <View className="mt-4">
-            <Text className="text-lg font-bold text-gray-900 mb-2">Images</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {images.map((image) => (
-                <View key={image.id} className="relative mr-2">
-                  <TouchableOpacity key={image.id} onPress={() => Linking.openURL(image.image_url)}>
-                    <Image
-                      source={{ uri: image.image_url }}
-                      className="w-40 h-40 rounded-lg border border-gray-400"
-                      onError={(e) => console.log(`Error loading image:`, e.nativeEvent.error)}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    className="absolute top-2 right-2 bg-red-500 p-2 rounded-full"
-                    onPress={() => deleteImage(image.id)}
-                  >
-                    <Feather name="trash-2" size={16} color="white" />
-                  </TouchableOpacity>
-                </View>
-              ))}
-            </ScrollView>
-          </View>
-        ) : (
-          <Text className="text-center text-gray-500 mt-4">No images available.</Text>
-        )}
-      </View>
-    </ScrollView>
+          {images.length > 0 ? (
+            <View className="mt-4">
+              <Text className="text-lg font-bold text-gray-900 dark:text-white mb-2">Images</Text>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} nestedScrollEnabled>
+                {images.map((image) => (
+                  <View key={image.id} className="relative mr-2">
+                    <TouchableOpacity onPress={() => Linking.openURL(image.image_url)}>
+                      <Image
+                        source={{ uri: image.image_url }}
+                        className="w-40 h-40 rounded-lg border border-gray-400 dark:border-gray-600"
+                        onError={(e) => console.log(`Error loading image:`, e.nativeEvent.error)}
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      className="absolute top-2 right-2 bg-red-500 p-2 rounded-full"
+                      onPress={() => deleteImage(image.id)}
+                    >
+                      <Feather name="trash-2" size={16} color="white" />
+                    </TouchableOpacity>
+                  </View>
+                ))}
+              </ScrollView>
+            </View>
+          ) : (
+            <Text className="text-center text-gray-500 dark:text-gray-400 mt-4">No images available.</Text>
+          )}
+        </View>
+      </ScrollView>
+    </View>
   );
+
 }
