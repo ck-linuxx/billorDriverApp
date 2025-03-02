@@ -62,7 +62,7 @@ export default function CameraPicker({ id }: CameraPickerProps) {
     try {
       const { error } = await supabase
         .from("images")
-        .insert([{ image_url: imageUrl }]);
+        .insert([{ load_id: id, image_url: imageUrl }]);
 
       if (error) throw new Error(error.message);
     } catch (error: any) {
