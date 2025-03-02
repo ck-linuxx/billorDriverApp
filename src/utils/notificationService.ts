@@ -1,25 +1,32 @@
-import * as Notifications from "expo-notifications";
-import * as Device from "expo-device";
-import { supabase } from "./supabase";
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+import { supabase } from '../utils/supabase';
+
 
 export async function registerForPushNotificationsAsync(userId: string) {
-  if (!Device.isDevice) {
-    alert("As notificações só funcionam em dispositivos reais.");
-    return;
-  }
-
-  const { status } = await Notifications.getPermissionsAsync();
-  if (status !== "granted") {
-    const { status: newStatus } = await Notifications.requestPermissionsAsync();
-    if (newStatus !== "granted") {
-      alert("Permissão para receber notificações negada.");
+  let token;
+  try {
+    const { status } = await Notifications.requestPermissionsAsync();
+    if (status !== 'granted') {
+      console.log('Permissão para notificações não concedida.');
       return;
     }
+
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log('Expo Push Token:', token);
+
+    const { error } = await supabase
+      .from('users')
+      .update({ expo_push_token: token })
+      .eq('id', userId);
+
+    if (error) {
+      console.error('Erro ao salvar token no banco:', error);
+    }
+  } catch (error) {
+    console.error('Erro ao registrar notificações:', error);
   }
-
-  const token = (await Notifications.getExpoPushTokenAsync()).data;
-
-  await supabase.from("users").update({ push_token: token }).eq("id", userId);
 
   return token;
 }
+

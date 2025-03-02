@@ -1,7 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../screens/SignIn';
 import SignUp from '../screens/SignUp';
-import Feed from '../screens/Feed';
 import TabRoutes from './tabs.routes';
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -37,20 +36,23 @@ function Routes() {
   const navigation = useNavigation();
 
   useEffect(() => {
-
-    supabase.auth.onAuthStateChange((_event, session) => {
+    supabase.auth.onAuthStateChange(async (_event, session) => {
       if (session) {
-        setAuth(session.user)
-        registerForPushNotificationsAsync(session.user.id);
+        setAuth(session.user);
+
+        const token = await registerForPushNotificationsAsync(session.user.id);
+        console.log('Token recebido:', token);
+        console.log('user id:', session.user.id);
+
         navigation.navigate('tabs');
         return;
       }
 
-      setAuth(null)
+      setAuth(null);
       navigation.navigate('login');
-    })
+    });
+  }, []);
 
-  }, [])
 
 
   return (
