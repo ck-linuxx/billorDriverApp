@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, FlatList, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, FlatList, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useAuth } from '../hooks/AuthContext';
 import { supabase } from '../utils/supabase';
@@ -16,7 +16,9 @@ export default function ChatScreen() {
   const [messages, setMessages] = useState<any[]>([]);
   const [message, setMessage] = useState('');
   const [users, setUsers] = useState<any[]>([]);
-
+  const getUserName = (userId: string) => {
+    return users.find(user => user.id === userId)?.name;
+  };
 
   useEffect(() => {
     if (!user) return;
@@ -73,10 +75,9 @@ export default function ChatScreen() {
         .order('created_at', { ascending: false });
 
       if (error) {
-        console.error('Erro ao buscar mensagens:', error);
-      } else {
-        setMessages(data || []);
+        return;
       }
+      setMessages(data || []);
     };
 
     fetchMessages();
@@ -91,7 +92,7 @@ export default function ChatScreen() {
         ) {
           setMessages((prevMessages) => {
             if (!prevMessages.some((msg) => msg.id === newMessage.id)) {
-              return [newMessage, ...prevMessages];
+              return [...prevMessages, newMessage];
             }
             return prevMessages;
           });
@@ -115,11 +116,11 @@ export default function ChatScreen() {
       .select();
 
     if (error) {
-      console.error('Erro ao enviar mensagem:', error);
       return;
     }
 
-    setMessages((prevMessages) => [data[0], ...prevMessages]);
+    setMessages((prevMessages) => [...prevMessages, data[0]]);
+
     setMessage('');
 
     const { data: receiverData, error: receiverError } = await supabase
@@ -129,16 +130,14 @@ export default function ChatScreen() {
       .single();
 
     if (receiverError) {
-      console.error('Erro ao buscar token do destinatário:', receiverError);
+      Alert.alert('Erro ao buscar token do destinatário:', receiverError);
       return;
     }
 
     if (!receiverData?.expo_push_token) {
-      console.log('Destinatário não tem token de push registrado.');
       return;
     }
 
-    console.log('Enviando notificação para:', receiverData.expo_push_token);
     try {
       const response = await fetch('https://exp.host/--/api/v2/push/send', {
         method: 'POST',
@@ -157,20 +156,17 @@ export default function ChatScreen() {
       });
 
       const responseData = await response.json();
-      console.log('Resposta do Expo Push:', responseData);
     } catch (err) {
-      console.error('Erro ao enviar notificação push:', err);
     }
   };
-
-
-
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} className={`flex-1 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
       <View className={`flex-row items-center p-4 ${theme === 'dark' ? 'bg-gray-800' : 'bg-black'}`}>
-        <TouchableOpacity onPress={() => navigation.goBack()} />
-        <Text className={`text-lg ml-4 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Chat</Text>
+        <TouchableOpacity onPress={() => navigation.goBack()} >
+          <Feather name="arrow-left" size={20} color="white" />
+        </TouchableOpacity>
+        <Text className={`text-lg ml-4 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Chat {"with " + user.id === user?.user_metadata.sub && user?.user_metadata.name}</Text>
       </View>
 
       {!receiverId ? (
@@ -192,12 +188,17 @@ export default function ChatScreen() {
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <View className={`p-3 ${item.sender_id === user.id ? (theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200') : (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100')} rounded-lg m-2`}>
-              <Text className={`text-xs ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>{item.users?.name || 'Usuário Desconhecido'}</Text>
+              <Text className={`text-xs ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>{getUserName(item.sender_id)}</Text>
               <Text className={`${theme === 'dark' ? 'text-white' : 'text-black'}`}>{item.content}</Text>
-              <Text className={`text-xs text-right ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>{item.created_at}</Text>
+              <Text className={`text-xs text-right ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                {item.created_at
+                  ? new Intl.DateTimeFormat(undefined, { hour: '2-digit', minute: '2-digit' }).format(
+                    new Date(`1970-01-01T${item.created_at}Z`)
+                  )
+                  : 'Hora inválida'}
+              </Text>
             </View>
           )}
-          inverted
         />
       )}
 
@@ -206,8 +207,8 @@ export default function ChatScreen() {
           <TextInput
             value={message}
             onChangeText={setMessage}
-            placeholder='Digite uma mensagem...'
-            className={`flex-1 p-4 border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded-lg text-${theme === 'dark' ? 'white' : 'black'}`}
+            placeholder='Type a message...'
+            className={`flex-1 p-4 border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded-lg placeholder:text-${theme === 'dark' ? 'white' : 'black'} text-${theme === 'dark' ? 'white' : 'black'}`}
           />
           <TouchableOpacity onPress={sendMessage} className={`ml-2 p-2 ${theme === 'dark' ? 'bg-gray-700' : 'bg-black'} rounded-full`} >
             <Feather name="send" color={"white"} size={20} />

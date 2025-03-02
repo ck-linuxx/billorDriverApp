@@ -9,8 +9,8 @@ import { ThemeProvider, useTheme } from '../themes/ThemeProvider';
 import { StatusBar } from 'react-native';
 import { AuthProvider, useAuth } from '../hooks/AuthContext';
 import { supabase } from '../utils/supabase';
-import ChatScreen from '../screens/UsersChat';
 import { registerForPushNotificationsAsync } from '../utils/notificationService';
+import ChatScreen from '../screens/ChatScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -22,8 +22,8 @@ export default function StackRoutes() {
   return (
     <AuthProvider>
       <StatusBar
-        barStyle={theme === "dark" ? "light-content" : "dark-content"}
-        backgroundColor={theme === "dark" ? "black" : "transparent"}
+        barStyle={theme !== "dark" ? "light-content" : "dark-content"}
+        backgroundColor={theme !== "dark" ? "black" : "transparent"}
         translucent
       />
       <Routes />
@@ -32,36 +32,50 @@ export default function StackRoutes() {
 }
 
 function Routes() {
-  const { setAuth } = useAuth();
+  const { setAuth, user } = useAuth();
   const navigation = useNavigation();
 
   useEffect(() => {
-    supabase.auth.onAuthStateChange(async (_event, session) => {
+    const { data: authListener } = supabase.auth.onAuthStateChange(async (_event, session) => {
       if (session) {
         setAuth(session.user);
 
-        const token = await registerForPushNotificationsAsync(session.user.id);
-        console.log('Token recebido:', token);
-        console.log('user id:', session.user.id);
+        await registerForPushNotificationsAsync(session.user.id);
 
-        navigation.navigate('tabs');
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'tabs' }],
+        });
+
         return;
       }
 
       setAuth(null);
-      navigation.navigate('login');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'login' }],
+      });
     });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
   }, []);
-
-
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="login" component={LoginScreen} />
-      <Stack.Screen name="signUp" component={SignUp} />
-      <Stack.Screen name="tabs" component={TabRoutes} />
-      <Stack.Screen name="item" component={Item} />
-      <Stack.Screen name="chatScreen" component={ChatScreen} />
+      {!user ? (
+        <>
+          <Stack.Screen name="login" component={LoginScreen} />
+          <Stack.Screen name="signUp" component={SignUp} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="tabs" component={TabRoutes} />
+          <Stack.Screen name="item" component={Item} />
+          <Stack.Screen name="chatScreen" component={ChatScreen} />
+        </>
+      )}
     </Stack.Navigator>
   );
 }

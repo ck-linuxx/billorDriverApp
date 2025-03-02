@@ -3,7 +3,7 @@ import { Feather } from "@expo/vector-icons"
 import React from "react";
 import LoadsList from "../screens/LoadsList";
 import Profile from "../screens/Profile";
-import UsersChat from "../screens/UsersChat";
+import ChatScreen from "../screens/ChatScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -12,7 +12,7 @@ export default function TabRoutes() {
     <Tab.Navigator screenOptions={{ headerShown: false }} >
       <Tab.Screen
         name="chat"
-        component={UsersChat}
+        component={ChatScreen}
         options={{
           tabBarActiveTintColor: "black",
           tabBarIcon: ({ size }) => <Feather name="message-circle" color={"black"} size={size} />,

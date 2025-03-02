@@ -53,7 +53,6 @@ export default function SignUp() {
 
     setLoading(false);
     navigation.navigate("tabs")
-    console.log("Login Data:", data);
   };
 
   return (

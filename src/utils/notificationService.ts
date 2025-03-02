@@ -8,12 +8,10 @@ export async function registerForPushNotificationsAsync(userId: string) {
   try {
     const { status } = await Notifications.requestPermissionsAsync();
     if (status !== 'granted') {
-      console.log('Permissão para notificações não concedida.');
       return;
     }
 
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log('Expo Push Token:', token);
 
     const { error } = await supabase
       .from('users')

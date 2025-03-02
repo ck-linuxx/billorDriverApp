@@ -139,7 +139,6 @@ export function Item() {
                       <Image
                         source={{ uri: image.image_url }}
                         className="w-40 h-40 rounded-lg border border-gray-400 dark:border-gray-600"
-                        onError={(e) => console.log(`Error loading image:`, e.nativeEvent.error)}
                       />
                     </TouchableOpacity>
                     <TouchableOpacity
