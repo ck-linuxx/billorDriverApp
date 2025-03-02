@@ -49,7 +49,7 @@ export default function LoadsList() {
               onPress={() =>
                 setSelectedStatus(selectedStatus === status ? '' : status)
               }
-              className={`px-4 py-2 rounded ${selectedStatus === status ? "bg-blue-500" : "bg-gray-300"
+              className={`px-4 py-2 rounded ${selectedStatus === status ? "bg-black" : "bg-gray-300"
                 }`}
             >
               <Text className="text-white">{status}</Text>
@@ -57,7 +57,7 @@ export default function LoadsList() {
           ))}
           <TouchableOpacity
             onPress={() => setSelectedStatus('')}
-            className={`px-4 py-2 rounded ${selectedStatus === '' ? "bg-blue-500" : "bg-gray-300"
+            className={`px-4 py-2 rounded ${selectedStatus === '' ? "bg-black" : "bg-gray-300"
               }`}
           >
             <Text className="text-white">All</Text>

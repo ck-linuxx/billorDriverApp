@@ -3,8 +3,8 @@ import { Feather } from "@expo/vector-icons"
 import Feed from "../screens/Feed"
 import New from "../screens/New"
 import React from "react";
-import StackRoutes from "./stack.routes";
 import LoadsList from "../screens/LoadsList";
+import ChatScreen from "../components/Chat";
 
 const Tab = createBottomTabNavigator();
 
@@ -15,15 +15,17 @@ export default function TabRoutes() {
         name="feed"
         component={Feed}
         options={{
-          tabBarIcon: ({ color, size }) => <Feather name="home" color={color} size={size} />,
+          tabBarActiveTintColor: "black",
+          tabBarIcon: ({ size }) => <Feather name="home" color={"black"} size={size} />,
           tabBarLabel: "Home"
         }}
       />
       <Tab.Screen
         name="chat"
-        component={New}
+        component={ChatScreen}
         options={{
-          tabBarIcon: ({ color, size }) => <Feather name="message-circle" color={color} size={size} />,
+          tabBarActiveTintColor: "black",
+          tabBarIcon: ({ size }) => <Feather name="message-circle" color={"black"} size={size} />,
           tabBarLabel: "Chat"
         }}
       />
@@ -31,7 +33,8 @@ export default function TabRoutes() {
         name="loads"
         component={LoadsList}
         options={{
-          tabBarIcon: ({ color, size }) => <Feather name="loader" color={color} size={size} />,
+          tabBarActiveTintColor: "black",
+          tabBarIcon: ({ size }) => <Feather name="loader" color={"black"} size={size} />,
           tabBarLabel: "Loads"
         }}
       />
@@ -39,8 +42,9 @@ export default function TabRoutes() {
         name="profile"
         component={LoadsList}
         options={{
-          tabBarIcon: ({ color, size }) => <Feather name="user" color={color} size={size} />,
-          tabBarLabel: "Profile"
+          tabBarActiveTintColor: "black",
+          tabBarIcon: ({ size }) => <Feather name="user" color={"black"} size={size} />,
+          tabBarLabel: "Profile",
         }}
       />
     </Tab.Navigator>

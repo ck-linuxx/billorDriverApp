@@ -1,7 +1,7 @@
 import { Button } from '@rneui/themed';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 import { supabase } from '../lib/supabase';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/AuthContext';
 
 export default function Feed() {
   const { setAuth } = useAuth()

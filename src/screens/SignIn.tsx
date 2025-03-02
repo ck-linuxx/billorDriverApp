@@ -61,26 +61,26 @@ export default function SignIn() {
             <View className="h-full p-4 flex justify-center gap-3">
               <View className="bg-white p-4 rounded-lg">
                 <View className="mb-3">
-                  <Text className="text-titleAndButtons text-4xl font-extrabold">Welcome back!</Text>
+                  <Text className="text-black text-4xl font-extrabold">Welcome back!</Text>
                 </View>
 
                 <View className="flex gap-2">
-                  <Text className="text-blueLetters text-xl">E-mail address:</Text>
+                  <Text className="text-black text-xl">E-mail address:</Text>
                   <TextInput
                     keyboardType="email-address"
                     placeholder="Email"
-                    className="h-14 p-4 border border-blueLetters rounded-lg placeholder:text-buttonsAndLetters text-buttonsAndLetters"
+                    className="h-14 p-4 border border-black rounded-lg placeholder:text-black text-black"
                     onChangeText={(text) => setValue("email", text)}
                   />
                   {errors.email && <Text className="text-red-500">{errors.email.message}</Text>}
                 </View>
 
                 <View className="flex gap-2 mt-4 relative">
-                  <Text className="text-blueLetters text-xl">Password:</Text>
+                  <Text className="text-black text-xl">Password:</Text>
                   <TextInput
                     secureTextEntry={!passwordVisible}
                     placeholder="Password"
-                    className="h-14 p-4 pr-12 border border-blueLetters rounded-lg placeholder:text-buttonsAndLetters text-buttonsAndLetters w-full"
+                    className="h-14 p-4 pr-12 border border-black rounded-lg placeholder:text-black text-black w-full"
                     onChangeText={(text) => setValue("password", text)}
                   />
                   <TouchableOpacity
@@ -90,19 +90,19 @@ export default function SignIn() {
                     <Feather
                       name={passwordVisible ? "eye" : "eye-off"}
                       size={24}
-                      color={Colors.buttonsAndLetters}
+                      color={Colors.black}
                     />
                   </TouchableOpacity>
                   {errors.password && <Text className="text-red-500">{errors.password.message}</Text>}
                 </View>
 
                 <View className="flex my-4 gap-6">
-                  <TouchableOpacity className="bg-buttonsAndLetters p-4 rounded-lg" onPress={handleSubmit(onSubmit)}>
+                  <TouchableOpacity className="bg-black p-4 rounded-lg" onPress={handleSubmit(onSubmit)}>
                     <Text className="text-white text-xl self-center">Sign In</Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity onPress={() => navigation.navigate("signUp")}>
-                    <Text className="text-blueLetters text-xl self-center">Don't have an account?</Text>
+                    <Text className="text-black text-xl self-center">Don't have an account?</Text>
                   </TouchableOpacity>
 
                 </View>

@@ -3,7 +3,7 @@ export const Colors = {
   background: "#1e2432",
   white: "#ffffff",
   backgroundLight: "#17284a",
-  blueLetters: "#385683",
+  blueLetters: "#276ef1",
   titles: "#11294c",
   titleAndButtons: "#1F41BB",
   textInputFill: "#f1f4ff",

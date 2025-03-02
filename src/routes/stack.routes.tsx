@@ -3,7 +3,7 @@ import LoginScreen from '../screens/SignIn';
 import SignUp from '../screens/SignUp';
 import Feed from '../screens/Feed';
 import TabRoutes from './tabs.routes';
-import { AuthProvider, useAuth } from '../context/AuthContext';
+import { AuthProvider, useAuth } from '../hooks/AuthContext';
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { useNavigation } from '@react-navigation/native';
