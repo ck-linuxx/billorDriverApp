@@ -6,6 +6,7 @@ import { supabase } from '../utils/supabase';
 import { Feather } from "@expo/vector-icons"
 import { useTheme } from '../themes/ThemeProvider';
 import { registerForPushNotificationsAsync } from '../utils/notificationService';
+import FlatListChat from '../components/FlatListChat';
 
 export default function ChatScreen() {
   const navigation = useNavigation();
@@ -16,9 +17,6 @@ export default function ChatScreen() {
   const [messages, setMessages] = useState<any[]>([]);
   const [message, setMessage] = useState('');
   const [users, setUsers] = useState<any[]>([]);
-  const getUserName = (userId: string) => {
-    return users.find(user => user.id === userId)?.name;
-  };
 
   useEffect(() => {
     if (!user) return;
@@ -169,38 +167,11 @@ export default function ChatScreen() {
         <Text className={`text-lg ml-4 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Chat {"with " + user.id === user?.user_metadata.sub && user?.user_metadata.name}</Text>
       </View>
 
-      {!receiverId ? (
-        <FlatList
-          data={users}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              className={`p-3 border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}
-              onPress={() => navigation.navigate('chatScreen', { receiverId: item.id })}
-            >
-              <Text className={`text-lg ${theme === 'dark' ? 'text-white' : 'text-black'}`}>{item.name}</Text>
-            </TouchableOpacity>
-          )}
-        />
-      ) : (
-        <FlatList
-          data={messages}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <View className={`p-3 ${item.sender_id === user.id ? (theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200') : (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100')} rounded-lg m-2`}>
-              <Text className={`text-xs ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>{getUserName(item.sender_id)}</Text>
-              <Text className={`${theme === 'dark' ? 'text-white' : 'text-black'}`}>{item.content}</Text>
-              <Text className={`text-xs text-right ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                {item.created_at
-                  ? new Intl.DateTimeFormat(undefined, { hour: '2-digit', minute: '2-digit' }).format(
-                    new Date(`1970-01-01T${item.created_at}Z`)
-                  )
-                  : 'Hora inválida'}
-              </Text>
-            </View>
-          )}
-        />
-      )}
+      <FlatListChat
+        receiverId={receiverId}
+        users={users}
+        messages={messages}
+      />
 
       {receiverId && (
         <View className={`flex-row items-center p-3 border-t ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>

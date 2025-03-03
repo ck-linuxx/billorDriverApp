@@ -68,17 +68,17 @@ export function Item() {
         nestedScrollEnabled
         showsVerticalScrollIndicator={false}
       >
-        <View className="bg-gray-100 dark:bg-black p-4">
+        <View className="bg-gray-100 dark:bg-gray-800 p-4">
           <Text className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-4">
             {load?.name}
           </Text>
 
-          <View className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-md mb-4">
+          <View className="bg-white dark:bg-gray-600 p-4 rounded-xl shadow-md mb-4">
             <Text className="text-lg text-gray-600 dark:text-gray-300">Value of Load</Text>
             <Text className="text-5xl font-bold text-gray-900 dark:text-white">{load?.value}</Text>
           </View>
 
-          <View className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-md mb-4">
+          <View className="bg-white dark:bg-gray-600 p-4 rounded-xl shadow-md mb-4">
             <Text className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">Additional Information</Text>
             <Text className="text-gray-800 dark:text-gray-200">
               <Text className="font-bold">Description:</Text> {load?.additionalInformation.description}
