@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, FlatList, KeyboardAvoidingView, Platform, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, FlatList, KeyboardAvoidingView, Platform, Alert, ActivityIndicator } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useAuth } from '../hooks/AuthContext';
 import { supabase } from '../utils/supabase';
@@ -17,6 +17,7 @@ export default function ChatScreen() {
   const [messages, setMessages] = useState<any[]>([]);
   const [message, setMessage] = useState('');
   const [users, setUsers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -64,6 +65,7 @@ export default function ChatScreen() {
   useEffect(() => {
     if (!user || !receiverId) return;
 
+    setLoading(true);
     const fetchMessages = async () => {
       const { data, error } = await supabase
         .from('messages')
@@ -73,6 +75,7 @@ export default function ChatScreen() {
         .order('created_at', { ascending: false });
 
       if (error) {
+        setLoading(false);
         return;
       }
       setMessages(data || []);
@@ -97,6 +100,8 @@ export default function ChatScreen() {
         }
       })
       .subscribe();
+
+    setLoading(false);
 
     return () => {
       supabase.removeChannel(subscription);
@@ -157,6 +162,14 @@ export default function ChatScreen() {
     } catch (err) {
     }
   };
+
+  if (loading) {
+    return (
+      <View className={`flex-1 justify-center items-center ${theme === "dark" ? 'bg-gray-800' : "bg-white"}`}>
+        <ActivityIndicator size="large" color={theme === "dark" ? "white" : "black"} />
+      </View>
+    );
+  }
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} className={`flex-1 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>

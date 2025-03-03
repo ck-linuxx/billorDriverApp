@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View, Text, TextInput, Image, TouchableOpacity, Alert } from "react-native";
+import { View, Text, TextInput, Image, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Feather } from "@expo/vector-icons";
 import { useTheme } from "../themes/ThemeProvider";
@@ -17,7 +17,7 @@ export default function Profile() {
   const { user } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const userData: IUser = user?.user_metadata || {};
-
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState(userData.username || "");
   const [avatarUrl, setAvatarUrl] = useState(userData.profileImage || "");
   const [isEditing, setIsEditing] = useState(false);
@@ -26,6 +26,7 @@ export default function Profile() {
     const fetchUserData = async () => {
       if (!user?.id) return;
 
+      setLoading(true);
       const { data, error } = await supabase
         .from("users")
         .select("name")
@@ -33,6 +34,7 @@ export default function Profile() {
         .single();
 
       if (!error && data) setUsername(data.name);
+      setLoading(false);
     };
     fetchUserData();
   }, [user?.id]);
@@ -43,9 +45,19 @@ export default function Profile() {
       return;
     }
 
+    setLoading(true);
     const { error } = await supabase.from("users").update({ name: username }).eq("id", user?.id);
     if (!error) setIsEditing(false);
+    setLoading(false);
   };
+
+  if (loading) {
+    return (
+      <View className={`flex-1 justify-center items-center ${theme === "dark" ? 'bg-gray-800' : "bg-white"}`}>
+        <ActivityIndicator size="large" color={theme === "dark" ? "white" : "black"} />
+      </View>
+    );
+  }
 
   return (
     <View className={`flex-1 p-6 ${theme === "dark" ? 'bg-gray-800' : "bg-white"}`}>
